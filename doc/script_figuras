@@ -1,0 +1,54 @@
+java -version
+java version "1.6.0_31"
+Java(TM) SE Runtime Environment (build 1.6.0_31-b04)
+Java HotSpot(TM) Server VM (build 20.6-b01, mixed mode)
+
+wget http://apache.mirror.pop-sc.rnp.br/apache//
+cassandra/1.0.8/apache-cassandra-1.0.8-bin.tar.gz
+
+tar -xvf apache-cassandra-1.0.8-bin.tar.gz
+
+---
+
+cluster_name: 'Cassandra Hits' 10
+- seeds: "67.23.79.232" 13
+listen_address: 67.23.79.232 181
+rpc_address: 67.23.79.232 193
+
+cluster_name: 'Cassandra Hits' 10
+- seeds: "67.23.79.232" 13
+listen_address: 173.246.45.220 181
+rpc_address: 173.246.45.220 193
+
+---
+
+mkdir -p -m 777 /var/lib/cassandra/data
+mkdir -p -m 777 /var/lib/cassandra/commitlog
+mkdir -p -m 777 /var/lib/cassandra/saved_caches
+
+---
+
+bin/cassandra-cli -h 67.23.79.232
+
+connect 67.23.79.232/9160;
+
+create keyspace CassandraHits with
+placement_strategy = 'org.apache.cassandra.locator.SimpleStrategy'
+and strategy_options = [{replication_factor: 2}];
+
+use CassandraHits;
+
+create column family Hits with comparator = UTF8Type;
+
+---
+
+ab -n 1000 -c 1 http://cassandra-hits
+
+---
+
+SERVIDORES = %w(67.23.79.232:9160 173.246.45.220:9160)
+cassandra = Cassandra.new("CassandraHits", SERVIDORES)
+cassandra.insert("Hits", Time.now.to_f.to_s, {"teste" => "teste"})
+
+---
+

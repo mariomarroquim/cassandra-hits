@@ -1,0 +1,17 @@
+Use this README file to introduce your application and point to useful places in the API for learning more.
+Run "rake doc:app" to generate API documentation for your models, controllers, helpers, and libraries.
+
+Baixar Cassandra
+
+Editar configurações
+
+Criar diretórios
+
+Startar o primeiro depois o segundo
+
+Criar keyspace com strategia e replicacao
+with placement_strategy = 'org.apache.cassandra.locator.SimpleStrategy' and strategy_options = [{replication_factor:2}]
+
+criar column family
+
+gemmmm

@@ -1,0 +1,24 @@
+<h1>.:: Cassandra Hits ::.</h1>
+
+<div id="grafico_hits" class="inline"></div>
+
+<div id="grafico_distribuicao" class="inline"></div>
+
+<% javascript_tag do -%>
+  $(function(){
+    setInterval(function(){
+      $.get("/cluster/hits", function(data) {
+        $.plot($("#grafico_hits"), [eval(data)],
+        {
+          series: {shadowSize: 0, lines: {lineWidth: 5}},
+          xaxis: {show: false},
+          yaxis: {axisLabel: "Hits lidos..."}
+        });
+      });
+
+      $.get("/cluster/distribuicao", function(data) {
+        $.plot($("#grafico_distribuicao"), eval(data), {series: {pie: {show: true, innerRadius: 0.5}}});
+      });
+    }, 500);
+  });
+<% end -%>
