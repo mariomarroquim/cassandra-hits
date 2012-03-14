@@ -8,7 +8,7 @@ class Cluster
 
     if env["PATH_INFO"] == "/cluster/hit"
       cassandra = Cassandra.new("CassandraHits", SERVIDORES)
-      cassandra.insert("Hits2", Time.now.to_f.to_s, {"teste" => "teste"})
+      cassandra.insert("Hits", Time.now.to_f.to_s, {"teste" => "teste"})
       [200, {"Content-Type" => "text/html"}, ["Ok"]]
 
     elsif env["PATH_INFO"] == "/cluster/hits"
@@ -32,7 +32,7 @@ class Cluster
 
   def self.hits_do(servidor)
     hits_servidor = 0
-    servidor.each_key("Hits2"){|chave| hits_servidor += 1}
+    servidor.each_key("Hits"){|chave| hits_servidor += 1}
     hits_servidor
   end
 end
