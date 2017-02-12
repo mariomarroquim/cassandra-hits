@@ -1,7 +1,7 @@
-README
-======
+Cassandra Hits
+==============
 
-A project that shows read and write performance over a Cassandra cluster.
+Ruby on Rails project that shows read and write performance over a Cassandra cluster.
 
 Usage
 -----
@@ -17,4 +17,3 @@ Support
 -------
 
 You can contact me at mariomarroquim@gmail.com.
-
